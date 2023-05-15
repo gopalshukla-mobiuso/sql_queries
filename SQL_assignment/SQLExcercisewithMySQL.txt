@@ -126,9 +126,7 @@ Answer- SELECT  AVG(film.length)  AS avg_length FROM film
 
 
 Q3 Which film categories are long? (5 rows) (doubt)
-Answer-  SELECT COUNT(film.film_id) AS total_stock FROM film
-         JOIN inventory ON film.film_id = inventory.film_id
-         WHERE film.title = "Hunchback Impossible"
+Answer-  pending
 
 
 Q4 How many copies of the film “Hunchback Impossible” exist in the inventory system? (6) 
