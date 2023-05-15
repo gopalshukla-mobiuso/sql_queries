@@ -8,7 +8,7 @@ SQL Practice - Part 1
 Use “Sakila” database for the following questions
 
 Q1 Display all tables available in the database “sakila” 
-Answer- SHOW sakila
+Answer- SHOW Tables
 
 Q2 Display structure of table “actor”. (4 row) 
 Answer- DESCRIBE actor;
@@ -114,7 +114,7 @@ SQL Practice – Part 2
 Use “Sakila” database for the following questions
 
 Q1 Which actor has appeared in the most films? (‘107', 'GINA', 'DEGENERES', '42') 
-Answer-   SELECT CONCAT(actor.first_name,' ', actor.last_name), COUNT(film_actor.actor_id) as film_count FROM film_actor
+Answer-   SELECT actor.actor_id, actor.first_name, actor.last_name, COUNT(film_actor.actor_id) as film_count FROM film_actor
          JOIN actor ON  film_actor.actor_id = actor.actor_id
          group by actor.actor_id,actor.first_name
         order by  film_count desc limit 1;
