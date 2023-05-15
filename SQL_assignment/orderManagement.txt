@@ -24,18 +24,21 @@ SELECT
             CASE
             WHEN product_class.product_class_code IN ('Electronics', 'Computer') THEN
             CASE
-                WHEN product.product_quantity_avail <= 10 THEN 'Low stock'
+                WHEN product.product_quantity_avail=0 THEN 'Out of stock'
+                WHEN product.product_quantity_avail BETWEEN 1 AND 10 THEN 'Low stock'
                 WHEN product.product_quantity_avail BETWEEN 11 AND 30 THEN 'In stock'
                 ELSE 'Enough stock'
             END
            WHEN product_class.product_class_code IN ('Stationery', 'Clothes') THEN
             CASE
-                WHEN product.product_quantity_avail <= 20 THEN 'Low stock'
+                WHEN product.product_quantity_avail=0 THEN 'Out of stock'
+                WHEN product.product_quantity_avail BETWEEN 1 AND 20 THEN 'Low stock'
                 WHEN product.product_quantity_avail BETWEEN 21 AND 80 THEN 'In stock'
                 ELSE 'Enough stock'
             END
             ELSE
             CASE
+                WHEN product.product_quantity_avail=0 THEN 'Out of stock'
                 WHEN product.product_quantity_avail <= 15 THEN 'Low stock'
                 WHEN product.product_quantity_avail BETWEEN 16 AND 50 THEN 'In stock'
                 ELSE 'Enough stock'
