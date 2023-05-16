@@ -67,7 +67,7 @@ FROM  online_customer
 JOIN address, order_header, order_items, product, product_class ON online_customer.address_id = address.address_id AND order_header.order_id= order_items.order_id AND product_class.product_class_code= product.product_class_code AND online_customer.customer_id= order_header.customer_id AND product.product_id=order_items.product_id 
 WHERE address.pincode NOT LIKE '%0%' AND order_header.order_status='Shipped'
 GROUP BY online_customer.customer_id
-ORDER BY subtotal, full_name
+ORDER BY subtotal, full_name;
 
 
 
@@ -78,7 +78,7 @@ ORDER BY subtotal, full_name
  SELECT product.product_id, product.product_desc, SUM(order_items.product_quantity) AS TOTAL_QUANTITY
         FROM product JOIN order_items ON product.product_ID= order_items.product_ID 
         WHERE product.product_id=201 
-        GROUP BY product.product_id
+        GROUP BY product.product_id;
 
 
 
@@ -88,14 +88,14 @@ ORDER BY subtotal, full_name
        FROM online_customer 
        LEFT JOIN order_header, order_items, product
        ON online_customer.customer_id=order_header.customer_id
-       AND order_header.order_id= order_items.order_id AND  product.product_id= order_items.product_id 
+       AND order_header.order_id= order_items.order_id AND  product.product_id= order_items.product_id;
  
 -- 7. Write a query to display carton id, (len*width*height) as carton_vol and identify the optimum carton (carton with the least volume whose volume is greater than the total volume of all items (len * width * height * product_quantity)) for a given order whose order id is 10006, Assume all items of an order are packed into one single carton (box). (1 ROW) [NOTE: CARTON TABLE]
 
  SELECT carton_id, carton.len*carton.width*carton.height AS CARTON_VOL 
         FROM carton WHERE CARTON_VOL > (SELECT SUM(product.len*product.width*product.height*order_items.product_quantity)
         FROM product JOIN order_items  ON product.product_id= order_items.product_id WHERE order_items.order_id=10006) 
-        ORDER BY CARTON_VOL LIMIT 1
+        ORDER BY CARTON_VOL LIMIT 1;
 
 
 
@@ -104,14 +104,14 @@ ORDER BY subtotal, full_name
   SELECT oc.customer_id,oc.customer_fname ||' '|| oc.customer_lname AS fullname ,oh.order_id,SUM(oi.product_quantity) AS total_qty 
          FROM online_customer oc JOIN order_header oh ON oc.customer_id = oh.customer_id JOIN order_items oi ON oh.order_id = oi.order_id 
          WHERE  oh.order_status = 'Shipped' GROUP BY oc.customer_id, fullname, oh.order_id HAVING  total_qty > 10
-         ORDER BY oc.customer_id,oi.order_id ;
+         ORDER BY oc.customer_id,oi.order_id;
 
 
 
 
 -- 9. Write a query to display the order_id, customer id and customer full name of customers along with (product_quantity) as total quantity of products shipped for order ids > 10060. (6 ROWS) [NOTE: TABLES TO BE USED - online_customer, order_header, order_items]
     SELECT oc.customer_id,oc.customer_fname ||' '|| oc.customer_lname AS fullname ,oh.order_id,SUM(oi.product_quantity) AS total_qty FROM online_customer oc JOIN order_header oh ON oc.customer_id = oh.customer_id JOIN order_items oi ON oh.order_id = oi.order_id 
-    WHERE  oh.order_status = 'Shipped' GROUP BY oc.customer_id, fullname, oh.order_id HAVING  oi.order_id > 10060
+    WHERE  oh.order_status = 'Shipped' GROUP BY oc.customer_id, fullname, oh.order_id HAVING  oi.order_id > 10060;
      
 
 
@@ -131,7 +131,7 @@ FROM product
     product_class.product_class_desc,
     address.country 
 ORDER BY total_quantity DESC
-LIMIT 1
+LIMIT 1;
 
 
        
