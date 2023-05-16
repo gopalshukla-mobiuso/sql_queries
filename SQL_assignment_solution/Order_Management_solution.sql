@@ -62,12 +62,11 @@ SELECT COUNT(city) AS city_count,  country
 
 -- 4. Write a query to display the customer_id,customer full name ,city,pincode,and order details (order id, product class desc, product desc, subtotal(product_quantity * product_price)) for orders shipped to cities whose pin codes do not have any 0s in them. Sort the output on customer name and subtotal. (52 ROWS) [NOTE: TABLE TO BE USED - online_customer, address, order_header, order_items, product, product_class] (doubt)
 
-SELECT online_customer.customer_id,  online_customer.customer_fname|| online_customer.customer_lname AS full_name, ADDRESS.city, ADDRESS.pincode, ORDER_ITEMS.order_id, PRODUCT_CLASS_DESC, SUM( order_items.product_quantity*  PRODUCT.product_price) AS subtotal 
+SELECT order_header.order_status,online_customer.customer_id,  online_customer.customer_fname|| online_customer.customer_lname AS full_name, ADDRESS.city, ADDRESS.pincode, ORDER_ITEMS.order_id, PRODUCT_CLASS_DESC,  order_items.product_quantity*PRODUCT.product_price AS subtotal 
 FROM  online_customer 
 JOIN address, order_header, order_items, product, product_class ON online_customer.address_id = address.address_id AND order_header.order_id= order_items.order_id AND product_class.product_class_code= product.product_class_code AND online_customer.customer_id= order_header.customer_id AND product.product_id=order_items.product_id 
-WHERE address.pincode NOT LIKE '%0%' AND order_header.order_status='Shipped'
-GROUP BY online_customer.customer_id
-ORDER BY subtotal, full_name;
+WHERE   order_header.order_status='Shipped' AND address.pincode NOT LIKE '%0%'
+ORDER BY  full_name, subtotal;
 
 
 
